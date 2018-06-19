@@ -9,7 +9,7 @@ import android.util.TypedValue;
 import android.view.Display;
 
 /**
- * Created by chenjurong
+ * Created by JiangYiDong on 2018/6/19.
  * 尺寸帮助类
  */
 public class DensityUtil {
