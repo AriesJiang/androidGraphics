@@ -4,8 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
 
 /**
  * Created by JiangYiDong on 2018/6/19.
@@ -52,6 +51,13 @@ public class BitmapUtils {
     }
 
 
+    /**
+     * google提供
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         if (reqWidth == 0 || reqHeight == 0) {
             return 1;
@@ -74,5 +80,64 @@ public class BitmapUtils {
         }
 
         return inSampleSize;
+    }
+
+    /**
+     * @param context
+     * @param imageSize
+     * @return
+     */
+    public static Bitmap compressFromUri(Context context, String filePath, int imageSize) {
+
+        // uri指向的文件路径
+        if (null == filePath) {
+            return null;
+        }
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        options.inSampleSize = calculateInSampleSize(options,
+                imageSize, imageSize);
+//        Log.d("inSampleSize", options.inSampleSize+"");
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = false;
+        options.inPurgeable = true;
+        options.inInputShareable = true;
+
+        // options.inSampleSize=4;
+        File file = new File(filePath);
+        FileInputStream fs = null;
+        try {
+            fs = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Bitmap destBitmap = null;
+
+        if (fs != null)
+            try {
+                destBitmap = BitmapFactory.decodeFileDescriptor(fs.getFD(),
+                        null, options);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fs != null) {
+                    try {
+                        fs.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        return destBitmap;
     }
 }
