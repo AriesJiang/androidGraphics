@@ -34,13 +34,16 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
     private ImageView selectOriginalIv;
     private ImageView selectFinalIv;
     private SeekBar pixelSeekBar;
+    private SeekBar paletteSeekBar;
     private TextView pixelTv;
+    private TextView paletteTv;
     private ProgressBar progressBar;
     private AriesRecyclerView mAriesRecyclerView;
     private AriesRecyclerAdapter mAriesRecyclerAdapter;
 
     Bitmap originalBitmap = null;
-    private int curProgress = 12;
+    private int curProgressPixel = 112;
+    private int curProgressPalette = 12;
     private int spanCount = 5;
     private String imageFormat = ".jpg";
 
@@ -53,7 +56,9 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
         selectOriginalIv = findViewById(R.id.activity_pixelate_original_iv);
         selectFinalIv = findViewById(R.id.activity_pixelate_final_iv);
         pixelSeekBar = findViewById(R.id.activity_pixelate_progress);
+        paletteSeekBar = findViewById(R.id.activity_palette_progress);
         pixelTv = findViewById(R.id.activity_pixelate_density_tv);
+        paletteTv = findViewById(R.id.activity_palette_tv);
         progressBar = findViewById(R.id.activity_pixelate_progressBar);
         mAriesRecyclerView = findViewById(R.id.activity_pixelate_recycler);
 
@@ -86,6 +91,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
         });
 
         pixelSeekBar.setOnSeekBarChangeListener(this);
+        paletteSeekBar.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -163,8 +169,13 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         // 当拖动条的滑块位置发生改变时触发该方法,在这里直接使用参数progress，即当前滑块代表的进度值
 //        Log.e(TAG, "onProgressChanged progress=" + progress);
-        curProgress = progress;
-        pixelTv.setText("Max Colors:" + Integer.toString(curProgress));
+        if (seekBar == pixelSeekBar) {
+            curProgressPixel = progress;
+            pixelTv.setText("Max Pixel:" + Integer.toString(seekBar.getMax()) + " cur:" + Integer.toString(curProgressPixel));
+        } else if (seekBar == paletteSeekBar) {
+            curProgressPalette = progress;
+            paletteTv.setText("Max Colors:" + Integer.toString(curProgressPalette));
+        }
     }
 
     @Override
@@ -174,11 +185,14 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        Log.e(TAG, "停止滑动！curProgress=" + curProgress);
+        Log.e(TAG, "停止滑动！pixel:" + Integer.toString(curProgressPixel) + " Max Colors:" + Integer.toString(curProgressPalette));
+        Log.e(TAG, "Max Pixel:" + Integer.toString(pixelSeekBar.getMax()) + " cur:" + Integer.toString(curProgressPixel));
+
         progressBar.setVisibility(View.VISIBLE);
         final long startTime = System.currentTimeMillis();
         Palette.Builder builder = new Palette.Builder(originalBitmap);
-        builder.maximumColorCount(curProgress);
+        builder.maximumColorCount(curProgressPalette);
+        builder.resizeBitmapWHSize(curProgressPixel);
         builder.generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
@@ -199,10 +213,11 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 //                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
                 }
 
-                pixelTv.setText("Max Colors :" + Integer.toString(curProgress) + " Real Colors:" + Integer.toString(swatchList.size()));
+                paletteTv.setText("Max Colors :" + Integer.toString(curProgressPalette) + " Real Colors:" + Integer.toString(swatchList.size()));
                 mAriesRecyclerAdapter.reFreshColor(mColorsArray, mColorsPopulation, mTextColorsArray);
                 Bitmap resource = palette.getmBitmapScale();
 
+                Log.e(TAG, "resource Width:" + resource.getWidth() + "  Height:" + resource.getHeight());
                 int[] pixels = new int[(resource.getHeight() * resource.getWidth())];
                 int[] pixelsSwatch = new int[(resource.getHeight() * resource.getWidth())];
                 resource.getPixels(pixels, 0, resource.getWidth(), 0, 0, resource.getWidth(), resource.getHeight());
@@ -251,12 +266,16 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
                 Bitmap bitmapSwatch = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 bitmapSwatch.setPixels(pixelsSwatch, 0, width, 0, 0, width, height);
                 selectFinalIv.setImageBitmap(bitmapSwatch);
-                Log.d(TAG, "Max Colors :" + Integer.toString(curProgress)
+                Log.d(TAG, "Max Colors :" + Integer.toString(curProgressPalette)
                         + "  Real Colors:" + Integer.toString(swatchList.size())
                         + "  spent=" + (System.currentTimeMillis() - startTime) + "ms");
-                pixelTv.setText("Max Colors :" + Integer.toString(curProgress)
+                paletteTv.setText("Max Colors :" + Integer.toString(curProgressPalette)
                         + "  Real Colors:" + Integer.toString(swatchList.size())
                         + "  spent=" + (System.currentTimeMillis() - startTime) + "ms");
+                pixelTv.setText("Max Pixel:" + Integer.toString(pixelSeekBar.getMax())
+                        + " cur:" + Integer.toString(curProgressPixel)
+                        + " w:" + resource.getWidth()
+                        + " h:" + resource.getHeight());
                 progressBar.setVisibility(View.GONE);
             }
         });

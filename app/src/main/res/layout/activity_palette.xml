@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Max Colors Num:"
+            android:text="Max Pixel:"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_final_iv"/>
 
@@ -68,10 +68,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:max="400"
+            android:min="50"
+            android:progress="112"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_density_tv"/>
+
+        <TextView
+            android:id="@+id/activity_palette_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Max Colors Num:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_progress"/>
+
+        <SeekBar
+            android:id="@+id/activity_palette_progress"
+            style="@android:style/Widget.DeviceDefault.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:max="256"
             android:min="8"
             android:progress="12"
-            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_density_tv"/>
+            app:layout_constraintTop_toBottomOf="@+id/activity_palette_tv"/>
 
         <ProgressBar
             android:id="@+id/activity_pixelate_progressBar"
@@ -91,7 +112,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="Colors List:"
-            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_progress"/>
+            app:layout_constraintTop_toBottomOf="@+id/activity_palette_progress"/>
 
         <com.aries.graphics.palette.AriesRecyclerView
             android:id="@+id/activity_pixelate_recycler"
