@@ -37,3 +37,12 @@ ps:主题颜色=你需要得到的特征颜色，不同的算法对主题颜色�
 1. 马赛克算法：https://github.com/DanielMartinus/Pixelate
 2. Median-Cut Color Quantization： http://collaboration.cmc.ec.gc.ca/science/rpn/biblio/ddj/Website/articles/DDJ/1994/9409/9409e/9409e.htm
 3. Android Palette base on com.android.support:palette-v7:26.1.0
+
+## 我的博客
+My bolg:  https://blog.csdn.net/u011484134
+
+## 打赏/Donation
+如果这个项目帮助你减少开发时间，你可以给我一杯饮料~
+<br/>
+![支付宝付款码](https://github.com/AriesJiang/androidPixelate/blob/master/image/alipay_code.jpg)
+<br/>
