@@ -1,4 +1,4 @@
-# androidPixelate
+# androidGraphics
 Android Demo on graphics processing:
 1. Pixelate Images 
 2. Palette Image (Get the key color of the image)
