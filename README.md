@@ -4,8 +4,11 @@ Android Demo on graphics processing:
 2. Palette Image (Get the key color of the image)
 
 ## Screenshotes:
+Pixelate1
 ![进度条调节马赛克大小](https://github.com/AriesJiang/androidPixelate/blob/master/image/微信图片_20180619200628.jpg)
+Palette1
 ![进度条调节颜色数量-颜色少](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16480638.jpg)
+Palette2
 ![进度条调节颜色数量-颜色多](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16514215.jpg)
 
 ## 实现
