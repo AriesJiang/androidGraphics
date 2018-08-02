@@ -6,10 +6,13 @@ Android Demo on graphics processing:
 ## Screenshotes:
 Pixelate1
 ![进度条调节马赛克大小](https://github.com/AriesJiang/androidPixelate/blob/master/image/微信图片_20180619200628.jpg)
+<br/>
 Palette1
 ![进度条调节颜色数量-颜色少](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16480638.jpg)
+<br/>
 Palette2
 ![进度条调节颜色数量-颜色多](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16514215.jpg)
+<br/>
 
 ## 实现
 #### Pixelate Images
@@ -20,6 +23,8 @@ Palette2
 1. 获取图片bitmap
 2. 使用中位切分法（Median cut）对颜色进行量化处理，得到预先设置的X个主题颜色
 3. 将获取到的多个颜色回放的新创建的图像中，得出新的图片
+
+ps:主题颜色=你需要得到的特征颜色，不同的算法对主题颜色数量的把控差别较大（优略比较：Median cut > Octree, Median cut > KMeans），这也是为什么选取Median cut的原因。
 
 ## 技术点/Technical point
 1. 马赛克处理/Pixelate
