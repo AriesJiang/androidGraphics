@@ -220,7 +220,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 //                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
                 }
 
-                paletteTv.setText("Max Colors :" + Integer.toString(curProgressPalette) + " Real Colors:" + Integer.toString(swatchList.size()));
+                paletteTv.setText("Max Colors:" + Integer.toString(curProgressPalette) + " Real Colors:" + Integer.toString(swatchList.size()));
                 mAriesRecyclerAdapter.reFreshColor(mColorsArray, mColorsPopulation, mTextColorsArray);
                 Bitmap resource = palette.getmBitmapScale();
 

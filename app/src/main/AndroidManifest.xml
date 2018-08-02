@@ -28,6 +28,9 @@
         <activity android:name="com.aries.graphics.pixelate.PixelateActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".NormalThreadLeakActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
