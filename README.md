@@ -5,12 +5,15 @@ Android Demo on graphics processing:
 
 ## Screenshotes:
 Pixelate1
+<br/>
 ![进度条调节马赛克大小](https://github.com/AriesJiang/androidPixelate/blob/master/image/微信图片_20180619200628.jpg)
 <br/>
 Palette1
+<br/>
 ![进度条调节颜色数量-颜色少](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16480638.jpg)
 <br/>
 Palette2
+<br/>
 ![进度条调节颜色数量-颜色多](https://github.com/AriesJiang/androidPixelate/blob/master/image/S80805-16514215.jpg)
 <br/>
 
@@ -28,6 +31,7 @@ ps:主题颜色=你需要得到的特征颜色，不同的算法对主题颜色�
 
 ## 技术点/Technical point
 1. 马赛克处理/Pixelate
+2. 颜色量化算法/Color quantization algorithm
 
 ## 使用开源项目/Reference
 1. 马赛克算法：https://github.com/DanielMartinus/Pixelate
