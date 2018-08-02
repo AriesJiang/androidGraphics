@@ -19,6 +19,7 @@ package android.support.v7.graphics;
 import android.graphics.Color;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v7.graphics.Palette.Swatch;
+import android.util.Log;
 import android.util.TimingLogger;
 
 import java.util.*;
@@ -110,6 +111,7 @@ final class ColorCutQuantizer {
             mTimingLogger.addSplit("Distinct colors copied into array");
         }
 
+        Log.d("ColorCutQuantizer", "ColorCutQuantizer maxColors=" + maxColors + " distinctColorCount=" + distinctColorCount);
         if (distinctColorCount <= maxColors) {
             // The image has fewer colors than the maximum requested, so just return the colors
             mQuantizedColors = new ArrayList<>();
@@ -423,6 +425,10 @@ final class ColorCutQuantizer {
     }
 
     private boolean shouldIgnoreColor(int color565) {
+        //如果没有颜色过滤，就不用转化888颜色 和 HSL
+        if (mFilters == null || mFilters.length == 0) {
+            return false;
+        }
         final int rgb = approximateToRgb888(color565);
         ColorUtils.colorToHSL(rgb, mTempHsl);
         return shouldIgnoreColor(rgb, mTempHsl);

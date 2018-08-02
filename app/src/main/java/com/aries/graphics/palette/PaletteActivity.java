@@ -162,9 +162,9 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         // 当拖动条的滑块位置发生改变时触发该方法,在这里直接使用参数progress，即当前滑块代表的进度值
-        Log.e(TAG, "onProgressChanged progress=" + progress);
+//        Log.e(TAG, "onProgressChanged progress=" + progress);
         curProgress = progress;
-        pixelTv.setText("Max Colors Num:" + Integer.toString(curProgress));
+        pixelTv.setText("Max Colors:" + Integer.toString(curProgress));
     }
 
     @Override
@@ -176,6 +176,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
     public void onStopTrackingTouch(SeekBar seekBar) {
         Log.e(TAG, "停止滑动！curProgress=" + curProgress);
         progressBar.setVisibility(View.VISIBLE);
+        final long startTime = System.currentTimeMillis();
         Palette.Builder builder = new Palette.Builder(originalBitmap);
         builder.maximumColorCount(curProgress);
         builder.generate(new Palette.PaletteAsyncListener() {
@@ -198,7 +199,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 //                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
                 }
 
-                pixelTv.setText("Max Colors Num:" + Integer.toString(curProgress) + "    Real Colors:" + Integer.toString(swatchList.size()));
+                pixelTv.setText("Max Colors :" + Integer.toString(curProgress) + " Real Colors:" + Integer.toString(swatchList.size()));
                 mAriesRecyclerAdapter.reFreshColor(mColorsArray, mColorsPopulation, mTextColorsArray);
                 Bitmap resource = palette.getmBitmapScale();
 
@@ -250,7 +251,12 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
                 Bitmap bitmapSwatch = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 bitmapSwatch.setPixels(pixelsSwatch, 0, width, 0, 0, width, height);
                 selectFinalIv.setImageBitmap(bitmapSwatch);
-                Log.d(TAG, "onGenerated currentTimeMillis=" + System.currentTimeMillis());
+                Log.d(TAG, "Max Colors :" + Integer.toString(curProgress)
+                        + "  Real Colors:" + Integer.toString(swatchList.size())
+                        + "  spent=" + (System.currentTimeMillis() - startTime) + "ms");
+                pixelTv.setText("Max Colors :" + Integer.toString(curProgress)
+                        + "  Real Colors:" + Integer.toString(swatchList.size())
+                        + "  spent=" + (System.currentTimeMillis() - startTime) + "ms");
                 progressBar.setVisibility(View.GONE);
             }
         });
