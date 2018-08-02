@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Density:"
+            android:text="Max Colors Num:"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_final_iv"/>
 

@@ -627,7 +627,7 @@ public final class Palette {
             if (bitmap == null || bitmap.isRecycled()) {
                 throw new IllegalArgumentException("Bitmap is not valid");
             }
-            mFilters.add(DEFAULT_FILTER);
+//            mFilters.add(DEFAULT_FILTER);
             mBitmap = bitmap;
             mSwatches = null;
 
@@ -648,7 +648,7 @@ public final class Palette {
             if (swatches == null || swatches.isEmpty()) {
                 throw new IllegalArgumentException("List of Swatches is not valid");
             }
-            mFilters.add(DEFAULT_FILTER);
+//            mFilters.add(DEFAULT_FILTER);
             mSwatches = swatches;
             mBitmap = null;
         }
@@ -966,6 +966,7 @@ public final class Palette {
     }
 
     /**
+     * 最好不要用，会过滤掉一些颜色，看情况需要吧
      * The default filter.
      */
     static final Filter DEFAULT_FILTER = new Filter() {

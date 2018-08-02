@@ -165,7 +165,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
         // 当拖动条的滑块位置发生改变时触发该方法,在这里直接使用参数progress，即当前滑块代表的进度值
         Log.e(TAG, "onProgressChanged progress=" + progress);
         curProgress = progress;
-        pixelTv.setText("Density:" + Integer.toString(curProgress));
+        pixelTv.setText("Max Colors Num:" + Integer.toString(curProgress));
     }
 
     @Override
@@ -197,6 +197,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 //                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
                 }
 
+                pixelTv.setText("Max Colors Num:" + Integer.toString(curProgress) + "    Real Colors:" + Integer.toString(swatchList.size()));
                 mAriesRecyclerAdapter.reFreshColor(mColorsArray, mColorsPopulation);
                 Bitmap resource = palette.getmBitmapScale();
 
