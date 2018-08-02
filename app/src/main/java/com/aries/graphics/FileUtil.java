@@ -1,4 +1,4 @@
-package com.aries.androidpixelate;
+package com.aries.graphics;
 
 import android.content.Context;
 import android.graphics.Bitmap;

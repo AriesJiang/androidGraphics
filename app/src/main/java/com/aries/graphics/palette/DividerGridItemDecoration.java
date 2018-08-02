@@ -1,4 +1,4 @@
-package com.aries.androidpixelate.palette;
+package com.aries.graphics.palette;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

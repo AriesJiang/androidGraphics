@@ -1,11 +1,10 @@
-package com.aries.androidpixelate.palette;
+package com.aries.graphics.palette;
 
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,11 +14,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.aries.androidpixelate.DensityUtil;
-import com.aries.androidpixelate.FileUtil;
-import com.aries.androidpixelate.R;
-import com.aries.androidpixelate.pixelate.OnPixelateListener;
-import com.aries.androidpixelate.pixelate.TimeUtils;
+import com.aries.graphics.DensityUtil;
+import com.aries.graphics.FileUtil;
+import com.aries.graphics.R;
+import com.aries.graphics.pixelate.OnPixelateListener;
+import com.aries.graphics.pixelate.TimeUtils;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.aries.androidpixelate.pixelate;
+package com.aries.graphics.pixelate;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import com.aries.androidpixelate.FileUtil;
-import com.aries.androidpixelate.R;
+import com.aries.graphics.FileUtil;
+import com.aries.graphics.R;
 
 import java.io.IOException;
 

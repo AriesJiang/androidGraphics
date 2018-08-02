@@ -1,6 +1,5 @@
-package com.aries.androidpixelate.pixelate;
+package com.aries.graphics.pixelate;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

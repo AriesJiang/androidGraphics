@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aries.androidpixelate.palette;
+package com.aries.graphics.palette;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.aries.androidpixelate.R;
+import com.aries.graphics.R;
 
 public class AriesRecyclerAdapter extends RecyclerView.Adapter<AriesRecyclerAdapter.ItemViewHolder>{
 

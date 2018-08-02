@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aries.androidpixelate.MainActivity">
+    tools:context="com.aries.graphics.MainActivity">
 
     <Button
         android:id="@+id/activity_pixelate_select_bt"
