@@ -107,6 +107,10 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 
                 Uri originalUri = data.getData(); // 获得图片的uri
                 if (originalUri != null) {
+                    if (originalBitmap != null && !originalBitmap.isRecycled()) {
+                        originalBitmap.recycle();
+                        originalBitmap = null;
+                    }
                     originalBitmap = MediaStore.Images.Media.getBitmap(resolver, originalUri);
                     // 显得到bitmap图片
                     selectOriginalIv.setImageBitmap(originalBitmap);
@@ -185,6 +189,9 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+        if (originalBitmap == null) {
+            return;
+        }
         Log.e(TAG, "停止滑动！pixel:" + Integer.toString(curProgressPixel) + " Max Colors:" + Integer.toString(curProgressPalette));
         Log.e(TAG, "Max Pixel:" + Integer.toString(pixelSeekBar.getMax()) + " cur:" + Integer.toString(curProgressPixel));
 
