@@ -19,28 +19,32 @@
 
         <TextView
             android:id="@+id/activity_pixelate_select_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
             android:text="TextView"
-            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_bt"/>
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/activity_pixelate_select_bt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_pixelate_select_bt"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/activity_pixelate_original_iv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_tv"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_bt"
             app:srcCompat="@mipmap/ic_launcher_round"/>
 
         <ImageView
             android:id="@+id/activity_pixelate_final_iv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -80,15 +84,24 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:id="@+id/activity_pixelate_colors_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Colors List:"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_progress"/>
+
         <com.aries.androidpixelate.palette.AriesRecyclerView
             android:id="@+id/activity_pixelate_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:overScrollMode="never"
             android:scrollbars="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_progress"/>
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_colors_title"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -29,14 +29,16 @@ public class AriesRecyclerAdapter extends RecyclerView.Adapter<AriesRecyclerAdap
 
     private int[] mColorsArray;
     private int[] mColorsPopulation;
+    private int[] mTextColorsArray;
 
     public AriesRecyclerAdapter(Context context) {
     }
 
-    public void reFreshColor(int[] colorsArray, int[] colorsPopulation) {
+    public void reFreshColor(int[] colorsArray, int[] colorsPopulation, int[] textColorsArray) {
         if ((colorsArray != null) && (colorsArray.length > 0)) {
             mColorsArray = colorsArray;
             mColorsPopulation = colorsPopulation;
+            mTextColorsArray = textColorsArray;
             notifyDataSetChanged();
         }
     }
@@ -51,9 +53,10 @@ public class AriesRecyclerAdapter extends RecyclerView.Adapter<AriesRecyclerAdap
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
         int color = mColorsArray[position];
-        holder.textView.setText(Integer.toHexString(color));
         holder.textViewPopulation.setText(Integer.toString(mColorsPopulation[position]));
-//        holder.textView.setTextColor(swatch.getTitleTextColor());
+        holder.textView.setText(Integer.toHexString(color));
+        holder.textViewPopulation.setTextColor(mTextColorsArray[position]);
+        holder.textView.setTextColor(mTextColorsArray[position]);
         holder.bgView.setBackgroundColor(color);
     }
 
