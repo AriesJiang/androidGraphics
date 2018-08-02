@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.aries.androidpixelate.DensityUtil;
 import com.aries.androidpixelate.FileUtil;
 import com.aries.androidpixelate.R;
 import com.aries.androidpixelate.pixelate.OnPixelateListener;
@@ -35,10 +37,12 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
     private SeekBar pixelSeekBar;
     private TextView pixelTv;
     private ProgressBar progressBar;
+    private AriesRecyclerView mAriesRecyclerView;
+    private AriesRecyclerAdapter mAriesRecyclerAdapter;
 
     Bitmap originalBitmap = null;
-    private Bitmap thumbnail = null;
     private int curProgress = 12;
+    private int spanCount = 5;
     private String imageFormat = ".jpg";
 
     @Override
@@ -52,6 +56,26 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
         pixelSeekBar = findViewById(R.id.activity_pixelate_progress);
         pixelTv = findViewById(R.id.activity_pixelate_density_tv);
         progressBar = findViewById(R.id.activity_pixelate_progressBar);
+        mAriesRecyclerView = findViewById(R.id.activity_pixelate_recycler);
+
+        mAriesRecyclerView.setHasFixedSize(false);
+        mAriesRecyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
+        int space = DensityUtil.dip2px(this, 2);
+        DividerGridItemDecoration itemDecoration = new DividerGridItemDecoration.Builder()
+                .drawLREdge(true)
+                .drawTBEdge(false)
+                .includeLREdge(false)
+                .includeTBEdge(true)
+                .spaceSize(space)
+                .spanCount(spanCount)
+                .build();
+        mAriesRecyclerView.addItemDecoration(itemDecoration);
+//        mAriesRecyclerView.addItemDecoration(new SpacesItemDecoration(ViewUtils.dipToPx(this, 2)));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+//        mAriesRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        mAriesRecyclerView.closeDefaultAnimator();
+        mAriesRecyclerAdapter = new AriesRecyclerAdapter(this);
+        mAriesRecyclerView.setAdapter(mAriesRecyclerAdapter);
 
         selectBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +103,6 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
                 Uri originalUri = data.getData(); // 获得图片的uri
                 if (originalUri != null) {
                     originalBitmap = MediaStore.Images.Media.getBitmap(resolver, originalUri);
-
-//                    thumbnail = ThumbnailUtils.extractThumbnail(originalBitmap, 300, 300);
-//                    selectOriginalIv.setImageBitmap(thumbnail);  //使用系统的一个工具类，参数列表为 Bitmap Width,Height  这里使用压缩后显示，否则在华为手机上ImageView 没有显示
                     // 显得到bitmap图片
                     selectOriginalIv.setImageBitmap(originalBitmap);
 
@@ -101,7 +122,7 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
                     imageFormat = path.substring(path.lastIndexOf("."));
                     String fileName = TimeUtils.getSimpleDate() + imageFormat;
                     Log.e(TAG, "fileName=" + fileName);
-                    saveToSD(thumbnail, fileName);
+//                    saveToSD(originalBitmap, fileName);
                 } else {
                     //部分手机可能直接存放在bundle中
                     Bundle bundleExtras = data.getExtras();
@@ -161,16 +182,22 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
         builder.generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-
                 List<Palette.Swatch> swatchList = palette.getSwatches();
-                Log.d(TAG, "swatchList size=" + swatchList.size());
-                for (Palette.Swatch swatch : swatchList) {
-                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
-                }
                 if (originalBitmap == null || swatchList == null || swatchList.isEmpty()) {
                     selectFinalIv.setImageBitmap(originalBitmap);
+                    return;
+                }
+                Log.d(TAG, "swatchList size=" + swatchList.size());
+                int[] mColorsArray = new int[swatchList.size()];
+                int[] mColorsPopulation = new int[swatchList.size()];
+                for (int index = 0; index < swatchList.size(); index++) {
+                    Palette.Swatch swatch = swatchList.get(index);
+                    mColorsArray[index] = swatch.getRgb();
+                    mColorsPopulation[index] = swatch.getPopulation();
+//                    Log.d(TAG, "swatch mPopulation=" + swatch.getPopulation());
                 }
 
+                mAriesRecyclerAdapter.reFreshColor(mColorsArray, mColorsPopulation);
                 Bitmap resource = palette.getmBitmapScale();
 
                 int[] pixels = new int[(resource.getHeight() * resource.getWidth())];
@@ -180,8 +207,15 @@ public class PaletteActivity extends AppCompatActivity implements OnPixelateList
                 int width = resource.getWidth();
                 for (int indexH = 0; indexH < height; indexH++) {
                     for (int indexW = 0; indexW < width; indexW++) {
+                        int colorAlpha = pixels[(width * indexH) + indexW];
                         int color = pixels[(width * indexH) + indexW] & 0x00ffffff;
 
+                        //兼容图片包涵透明像素的情况，这时候直接给回透明到图片中，也不画出来
+                        if (Color.alpha(colorAlpha) == 0) {
+//                            Log.d(TAG, "colorAlpha=" + Integer.toHexString(colorAlpha) + "  color=" + Integer.toHexString(color));
+                            pixelsSwatch[(width * indexH) + indexW] = colorAlpha;
+                            continue;
+                        }
                         boolean isRange = false;
                         int index = 0;
 //						for (; index < swatchList.size(); index++) {

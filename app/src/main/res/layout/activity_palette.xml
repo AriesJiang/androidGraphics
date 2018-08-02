@@ -1,78 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.aries.androidpixelate.MainActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/activity_pixelate_select_bt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="select Image"/>
-
-    <TextView
-        android:id="@+id/activity_pixelate_select_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_bt"
-        android:layout_marginTop="8dp" />
-
-    <ImageView
-        android:id="@+id/activity_pixelate_original_iv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/activity_pixelate_final_iv"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_tv"
-        app:srcCompat="@mipmap/ic_launcher_round" />
-
-    <ImageView
-        android:id="@+id/activity_pixelate_final_iv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_tv"
-        app:layout_constraintLeft_toRightOf="@+id/activity_pixelate_original_iv"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
-
-    <TextView
-        android:id="@+id/activity_pixelate_density_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Density:"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_original_iv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp" />
-
-    <SeekBar
-        android:id="@+id/activity_pixelate_progress"
-        style="@android:style/Widget.DeviceDefault.SeekBar"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:max="256"
-        android:min="8"
-        android:progress="12"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_density_tv" />
+        android:layout_height="match_parent"
+        tools:context="com.aries.androidpixelate.MainActivity">
 
-    <ProgressBar
-        android:id="@+id/activity_pixelate_progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
+        <Button
+            android:id="@+id/activity_pixelate_select_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select Image"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/activity_pixelate_select_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_bt"/>
+
+        <ImageView
+            android:id="@+id/activity_pixelate_original_iv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_select_tv"
+            app:srcCompat="@mipmap/ic_launcher_round"/>
+
+        <ImageView
+            android:id="@+id/activity_pixelate_final_iv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_original_iv"
+            app:srcCompat="@mipmap/ic_launcher_round"/>
+
+        <TextView
+            android:id="@+id/activity_pixelate_density_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Density:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_final_iv"/>
+
+        <SeekBar
+            android:id="@+id/activity_pixelate_progress"
+            style="@android:style/Widget.DeviceDefault.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:max="256"
+            android:min="8"
+            android:progress="12"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_density_tv"/>
+
+        <ProgressBar
+            android:id="@+id/activity_pixelate_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.aries.androidpixelate.palette.AriesRecyclerView
+            android:id="@+id/activity_pixelate_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            android:scrollbars="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_pixelate_progress"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
